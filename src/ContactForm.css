@@ -2,10 +2,31 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #f0f0f0;
+  background: linear-gradient(135deg, #f0f0f0, #e0e0e0, #d0d0d0); /* Subtle gradient */
+  background-size: 200% 200%; /* Make it larger than viewport to allow animation */
+  animation: gradientAnimation 15s ease infinite; /* Animate the gradient */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden; /* Prevent scrollbars from background animation */
 }
 
+/* Keyframe animation for the background gradient */
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.page-wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+}
 .formContainer {
   margin: auto;
   padding: 2rem;
@@ -18,7 +39,7 @@ body {
   width: 90%;
   max-width: 480px;
   gap: 1.25rem;
-  transition: all 0.2s ease-in-out;
+  /* Framer Motion handles transitions for formContainer */
 }
 
 .formContainer h2 {
@@ -45,13 +66,29 @@ textarea {
   border-radius: 10px;
   font-size: 1rem;
   background-color: #fafafa;
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease; /* Add box-shadow to transition */
 }
 
 input:focus,
 textarea:focus {
   border-color: #007bff;
   outline: none;
+  /* Framer Motion handles the focus glow for inputs */
+}
+
+/* Styles for the success toast message */
+.successToast {
+  /* Framer Motion handles the animation, but we need basic positioning */
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #28a745; /* Green for success */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
 }
 
 textarea {
@@ -69,10 +106,21 @@ textarea {
   border-radius: 10px;
   box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.25);
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  /* Framer Motion handles transitions for formButton */
 }
 
 .formButton:hover {
-  transform: translate(-4px, -4px);
-  box-shadow: 9px 9px 0 rgba(0, 0, 0, 0.25);
+}
+
+.formButton:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.15);
+}
+
+.errorText {
+  color: #d8000c; /* A shade of red */
+  margin-top: 10px;
+  text-align: center;
 }
