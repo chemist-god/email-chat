@@ -7,26 +7,44 @@ const ContactForm: React.FC = () => {
   const [showSuccess, setShowSuccess] = useState(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!formRef.current) return;
+  e.preventDefault();
+  if (!formRef.current) return;
 
-    emailjs
-      .sendForm(
-        process.env.REACT_APP_EMAILJS_SERVICE_ID!,
-        process.env.REACT_APP_EMAILJS_TEMPLATE_ID!,
-        formRef.current,
-        process.env.REACT_APP_EMAILJS_PUBLIC_KEY!
-      )
-      .then(() => {
-        setShowSuccess(true);
-        formRef.current?.reset();
-        setTimeout(() => setShowSuccess(false), 4000);
-      })
-      .catch((error) => {
-        console.error('EmailJS Error:', error.text);
-        alert('Something went wrong while sending your message.');
-      });
-  };
+  // Send to Admin (you)
+  emailjs
+    .sendForm(
+      process.env.REACT_APP_EMAILJS_SERVICE_ID!,
+      process.env.REACT_APP_EMAILJS_TEMPLATE_ID_ADMIN!,
+      formRef.current,
+      process.env.REACT_APP_EMAILJS_PUBLIC_KEY!
+    )
+    .then(() => {
+      console.log("Admin alert sent ✅");
+    })
+    .catch((error) => {
+      console.error("Admin alert failed:", error.text);
+    });
+
+  // Auto-reply to User
+  emailjs
+    .sendForm(
+      process.env.REACT_APP_EMAILJS_SERVICE_ID!,
+      process.env.REACT_APP_EMAILJS_TEMPLATE_ID_AUTOREPLY!,
+      formRef.current,
+      process.env.REACT_APP_EMAILJS_PUBLIC_KEY!
+    )
+    .then(() => {
+      console.log("Auto-reply sent ✅");
+      setShowSuccess(true);
+      formRef.current?.reset();
+      setTimeout(() => setShowSuccess(false), 4000);
+    })
+    .catch((error) => {
+      console.error("Auto-reply failed:", error.text);
+      alert("Something went wrong while sending your message.");
+    });
+};
+
 
   return (
     <>
