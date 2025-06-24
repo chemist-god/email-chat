@@ -109,8 +109,6 @@ textarea {
   /* Framer Motion handles transitions for formButton */
 }
 
-.formButton:hover {
-}
 
 .formButton:disabled {
   background-color: #cccccc;

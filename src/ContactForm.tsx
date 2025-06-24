@@ -51,104 +51,106 @@ const ContactForm: React.FC = () => {
   };
 
   return (
-    // The main container for the form, centered on the page.
-    // Using motion.div for potential future page-level animations or just as a wrapper.
-    <motion.div
-      className="page-wrapper"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.8 }}
-    >
-      <motion.form
-        ref={formRef}
-        onSubmit={handleSubmit}
-        className="formContainer"
-        initial={{ y: 50, opacity: 0, scale: 0.95 }}
-        animate={{ y: 0, opacity: 1, scale: 1 }}
-        transition={{ type: "spring", stiffness: 100, damping: 15, delay: 0.2 }}
-        whileHover={{ scale: 1.005, boxShadow: "12px 12px 0 rgba(0, 0, 0, 0.35)" }}
+    <>
+      {/* The main container for the form, centered on the page.
+          Using motion.div for potential future page-level animations or just as a wrapper. */}
+      <motion.div
+        className="page-wrapper"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
       >
-        <h2>Send me a message. Let's have a chat!</h2>
-
-        <div className="formElement">
-          <label htmlFor="from_name">Name</label>
-          <motion.input
-            type="text"
-            id="from_name"
-            name="from_name"
-            placeholder="Your name.."
-            required
-            disabled={isSubmitting}
-            whileFocus={{ scale: 1.01, borderColor: '#007bff', boxShadow: '0 0 8px rgba(0, 123, 255, 0.4)' }}
-          />
-        </div>
-
-        <div className="formElement">
-          <label htmlFor="from_email">E-mail</label>
-          <motion.input
-            type="email"
-            id="from_email"
-            name="from_email"
-            placeholder="Your email.."
-            required
-            disabled={isSubmitting}
-            whileFocus={{ scale: 1.01, borderColor: '#007bff', boxShadow: '0 0 8px rgba(0, 123, 255, 0.4)' }}
-          />
-        </div>
-
-        <div className="formElement">
-          <label htmlFor="message">Message</label>
-          <motion.textarea
-            name="message"
-            id="message"
-            rows={8}
-            cols={30}
-            placeholder="Your message.."
-            required
-            disabled={isSubmitting}
-            whileFocus={{ scale: 1.01, borderColor: '#007bff', boxShadow: '0 0 8px rgba(0, 123, 255, 0.4)' }}
-          />
-        </div>
-
-        <motion.button
-          type="submit"
-          className="formButton"
-          disabled={isSubmitting}
-          whileHover={{ scale: 1.05, boxShadow: "12px 12px 0 rgba(0, 0, 0, 0.35)" }}
-          whileTap={{ scale: 0.95, boxShadow: "5px 5px 0 rgba(0, 0, 0, 0.25)" }}
+        <motion.form
+          ref={formRef}
+          onSubmit={handleSubmit}
+          className="formContainer"
+          initial={{ y: 50, opacity: 0, scale: 0.95 }}
+          animate={{ y: 0, opacity: 1, scale: 1 }}
+          transition={{ type: "spring", stiffness: 100, damping: 15, delay: 0.2 }}
+          whileHover={{ scale: 1.005, boxShadow: "12px 12px 0 rgba(0, 0, 0, 0.35)" }}
         >
-          {isSubmitting ? 'Sending...' : 'Submit'}
-        </motion.button>
+          <h2>Send me a message. Let's have a chat!</h2>
 
-        <AnimatePresence>
-          {error && (
-            <motion.div
-              className="errorText"
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.2 }}
-            >
-              {error}
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.form>
-    </motion.div>
+          <div className="formElement">
+            <label htmlFor="from_name">Name</label>
+            <motion.input
+              type="text"
+              id="from_name"
+              name="from_name"
+              placeholder="Your name.."
+              required
+              disabled={isSubmitting}
+              whileFocus={{ scale: 1.01, borderColor: '#007bff', boxShadow: '0 0 8px rgba(0, 123, 255, 0.4)' }}
+            />
+          </div>
 
-    <AnimatePresence>
-      {showSuccess && (
-        <motion.div
-          className="successToast"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.3 }}
-        >
-          Message sent successfully! 🚀
-        </motion.div>
-      )}
-    </AnimatePresence>
+          <div className="formElement">
+            <label htmlFor="from_email">E-mail</label>
+            <motion.input
+              type="email"
+              id="from_email"
+              name="from_email"
+              placeholder="Your email.."
+              required
+              disabled={isSubmitting}
+              whileFocus={{ scale: 1.01, borderColor: '#007bff', boxShadow: '0 0 8px rgba(0, 123, 255, 0.4)' }}
+            />
+          </div>
+
+          <div className="formElement">
+            <label htmlFor="message">Message</label>
+            <motion.textarea
+              name="message"
+              id="message"
+              rows={8}
+              cols={30}
+              placeholder="Your message.."
+              required
+              disabled={isSubmitting}
+              whileFocus={{ scale: 1.01, borderColor: '#007bff', boxShadow: '0 0 8px rgba(0, 123, 255, 0.4)' }}
+            />
+          </div>
+
+          <motion.button
+            type="submit"
+            className="formButton"
+            disabled={isSubmitting}
+            whileHover={{ scale: 1.05, boxShadow: "12px 12px 0 rgba(0, 0, 0, 0.35)" }}
+            whileTap={{ scale: 0.95, boxShadow: "5px 5px 0 rgba(0, 0, 0, 0.25)" }}
+          >
+            {isSubmitting ? 'Sending...' : 'Submit'}
+          </motion.button>
+
+          <AnimatePresence>
+            {error && (
+              <motion.div
+                className="errorText"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.2 }}
+              >
+                {error}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.form>
+      </motion.div>
+
+      <AnimatePresence>
+        {showSuccess && (
+          <motion.div
+            className="successToast"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            Message sent successfully! 🚀
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 
